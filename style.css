@@ -25,7 +25,7 @@ h1 { font-family: 'Gaegu', cursive; font-weight: 700; display: flex; align-items
 #mute-button img { height: 1.3em; width: 1.3em; vertical-align: middle; filter: invert(30%); }
 
 /* 게임 영역 및 오버레이 래퍼 */
-#app-container { position: relative; width: calc(17 * 40px + 2 * 10px + 2 * 32px); margin: 0 auto; margin-bottom: auto; /* Pushes footer down if body is flex */ }
+#app-container { position: relative; width: calc(17 * 40px + 2 * 10px + 2 * 32px); margin: 0 auto; margin-bottom: auto; }
 
 /* 메인 메뉴 (컨테이너는 투명하게) */
 #main-menu { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0; background: none; border: none; box-shadow: none; box-sizing: border-box; gap: 15px; }
@@ -43,14 +43,21 @@ h1 { font-family: 'Gaegu', cursive; font-weight: 700; display: flex; align-items
 #restart-button:hover { background-color: #555; color: #ffffff; }
 
 /* Explanation Overlay Styles */
-#explanation-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 11; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; background-color: #ffffff; border: 4px solid #2C5E1A; border-radius: 20px; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); text-align: center; box-sizing: border-box; width: 80%; max-width: 500px; }
+#explanation-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 11; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; background-color: #ffffff; border: 4px solid #90C695; border-radius: 20px; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); text-align: center; box-sizing: border-box; width: 80%; max-width: 500px; }
 #explanation-overlay h2 { font-size: 1.6em; margin-bottom: 15px; color: #2C5E1A; }
 #explanation-overlay p { font-size: 1.1em; margin-bottom: 25px; color: #333; line-height: 1.5; font-weight: normal; }
 #close-explanation-button { font-family: 'Gaegu', cursive; font-size: 1em; font-weight: 700; padding: 5px 15px; border: 2px solid #2C5E1A; border-radius: 10px; background-color: #f0f0f0; color: #2C5E1A; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; }
 #close-explanation-button:hover { background-color: #e0e0e0; }
 
-/* 게임 보드 컨테이너 스타일 */
-#game-board { display: grid; grid-template-columns: repeat(17, 40px); grid-template-rows: repeat(10, 40px); gap: 0; border: 32px solid #90C695; border-radius: 40px; padding: 10px; background-color: #FBC8D4; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1); overflow: hidden; background-clip: padding-box; box-sizing: border-box; }
+/* --- MODIFIED 게임 보드 컨테이너 스타일 --- */
+#game-board {
+    display: grid; grid-template-columns: repeat(17, 40px); grid-template-rows: repeat(10, 40px);
+    gap: 0; border: 32px solid #90C695; border-radius: 40px; padding: 10px;
+    background-color: #FBC8D4; user-select: none; -webkit-user-select: none;
+    -moz-user-select: none; -ms-user-select: none; box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; background-clip: padding-box; box-sizing: border-box;
+    touch-action: none; /* <<<< Added: Prevent default touch actions like scroll/zoom */
+}
 #game-board.selecting { cursor: crosshair; }
 
 /* 개별 셀 스타일 */
@@ -61,20 +68,11 @@ h1 { font-family: 'Gaegu', cursive; font-weight: 700; display: flex; align-items
 .fruit { width: 100%; height: 100%; background-image: url('watermelonseed.png'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: transparent; border: none; box-shadow: none; border-radius: 0; color: white; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(0, 0, 0, 0.8); display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: normal; font-family: 'Gowun Dodum', sans-serif; cursor: grab; box-sizing: border-box; pointer-events: none; }
 
 /* 게임 정보 영역 (타이머, 점수, 리셋 버튼) 스타일 */
-#game-info { display: flex; justify-content: space-around; align-items: center; width: 80%; max-width: calc(17 * 40px); margin-top: 15px; font-size: 1.3em; color: #333; }
+#game-info { display: flex; justify-content: center; gap: 20px; align-items: center; width: 80%; max-width: calc(17 * 40px); margin-top: 15px; font-size: 1.3em; color: #333; }
 #timer, #score { padding: 5px 10px; background-color: #e0e0e0; border-radius: 8px; line-height: 1.2; font-family: 'Gaegu', cursive; width: 120px; text-align: center; box-sizing: border-box; }
 
-/* --- Footer Credit Style --- */
-.footer-credit {
-    width: 100%; /* Take full width */
-    text-align: center; /* Center text */
-    margin-top: 30px; /* Space above footer */
-    padding-bottom: 10px; /* Space at very bottom */
-    font-size: 0.9em; /* Smaller font */
-    color: #888; /* Grey color */
-    font-family: sans-serif; /* Use a standard font */
-}
-
+/* Footer Credit Style */
+.footer-credit { width: 100%; text-align: center; margin-top: 30px; padding-bottom: 10px; font-size: 0.9em; color: #888; font-family: sans-serif; }
 
 /* 숨김 규칙 */
 .hidden { display: none !important; }
